@@ -1,6 +1,7 @@
 package com.fancyfrog.reddit.security;
 
 import com.fancyfrog.reddit.exception.RedditBlogException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -54,5 +55,27 @@ public class JwtProvider {
         }catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e){
             throw new RedditBlogException("Exception occured while retrieving public key from keystore", e);
         }
+    }
+
+    public boolean validateToken(String jwt){
+        Jwts.parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
+        return true;
+    }
+
+    private PublicKey getPublicKey(){
+        try{
+            return keyStore.getCertificate("redditBlog").getPublicKey();
+        }catch (KeyStoreException e){
+            throw new RedditBlogException("Exception occured while retrieving public key from keystore", e);
+        }
+    }
+
+    public String getUsernameFromJwt(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(getPublicKey())
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
     }
 }
