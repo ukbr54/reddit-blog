@@ -8,4 +8,8 @@ public class RedditBlogException extends RuntimeException {
     public RedditBlogException(String message) {
         super(message);
     }
+
+    public RedditBlogException(String message, Exception e) {
+        super(message,e);
+    }
 }

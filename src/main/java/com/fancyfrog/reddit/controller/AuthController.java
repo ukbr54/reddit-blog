@@ -1,5 +1,7 @@
 package com.fancyfrog.reddit.controller;
 
+import com.fancyfrog.reddit.dto.AuthenticationResponse;
+import com.fancyfrog.reddit.dto.LoginRequest;
 import com.fancyfrog.reddit.dto.RegisterRequest;
 import com.fancyfrog.reddit.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -28,5 +30,10 @@ public class AuthController {
     public ResponseEntity<String> verifyToken(@PathVariable String token){
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activated Successfully",HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest){
+        return authService.login(loginRequest);
     }
 }
