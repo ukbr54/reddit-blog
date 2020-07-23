@@ -1,24 +1,21 @@
 package com.fancyfrog.reddit.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Created by Ujjwal Gupta on Jul,2020
  */
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationResponse {
+@NoArgsConstructor
+public class RefreshTokenRequest {
 
-    private String authenticationToken;
+    @NotBlank
     private String refreshToken;
-    private Instant expireAt;
     private String username;
 }

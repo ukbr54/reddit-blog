@@ -49,6 +49,15 @@ public class JwtProvider {
                 .compact();
     }
 
+    public String generateTokenFromUsername(String username){
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(Date.from(Instant.now()))
+                .signWith(getPrivateKey())
+                .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationTime)))
+                .compact();
+    }
+
     private PrivateKey getPrivateKey(){
         try{
             return (PrivateKey)keyStore.getKey("redditBlog","redditBlog".toCharArray());
@@ -77,5 +86,9 @@ public class JwtProvider {
                 .getBody();
 
         return claims.getSubject();
+    }
+
+    public Long getJwtExpirationTime() {
+        return jwtExpirationTime;
     }
 }
