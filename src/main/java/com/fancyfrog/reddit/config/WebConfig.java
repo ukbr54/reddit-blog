@@ -26,9 +26,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         ObjectMapper webbObjectMapper = objectMapper.copy();
-        webbObjectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        webbObjectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
         converters.add(new MappingJackson2HttpMessageConverter(webbObjectMapper));
     }
+
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
