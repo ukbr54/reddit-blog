@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() //csrf mainly occur when we are using session or cookies
+        http.cors().and()
+                .csrf().disable() //csrf mainly occur when we are using session or cookies
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/v2/api-docs","/configuration/ui","/swagger-resources/**","/configuration/security",
