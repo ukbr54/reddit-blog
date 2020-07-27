@@ -28,7 +28,7 @@ public class SubredditController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SubredditDto>> getAll(){
+    public ResponseEntity<List<SubredditDto>> getAllSubreddits(){
         return ResponseEntity.status(HttpStatus.OK).body( subredditService.getAll());
     }
 
