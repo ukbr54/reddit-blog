@@ -3,6 +3,7 @@ package com.fancyfrog.reddit.config;
 import com.fancyfrog.reddit.security.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,6 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() //csrf mainly occur when we are using session or cookies
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/subreddit").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/posts/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                 .antMatchers("/v2/api-docs","/configuration/ui","/swagger-resources/**","/configuration/security",
                         "/swagger-ui.html","/webjars/**").permitAll()
                 .anyRequest().authenticated();
